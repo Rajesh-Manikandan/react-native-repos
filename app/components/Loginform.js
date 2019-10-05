@@ -8,40 +8,37 @@ import {
   Dimensions
 } from "react-native";
 import { Actions } from "react-native-router-flux";
+import { useSelector, useDispatch } from "react-redux";
+import { login, logout } from "../actions/authActions";
 
-export default class Loginform extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <View style={styles.loginFormContainer}>
-        <TextInput
-          placeholder="Username/Email"
-          style={styles.input}
-          placeholderTextColor="rgba(255,255,255,0.8)"
-        />
-        <TextInput
-          placeholder="Password"
-          secureTextEntry
-          style={styles.input}
-          placeholderTextColor="rgba(255,255,255,0.8)"
-        />
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.btnText}>Login</Text>
+export default Loginform = () => {
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
+  return (
+    <View style={styles.loginFormContainer}>
+      <TextInput
+        placeholder="Username/Email"
+        style={styles.input}
+        placeholderTextColor="rgba(255,255,255,0.8)"
+      />
+      <TextInput
+        placeholder="Password"
+        secureTextEntry
+        style={styles.input}
+        placeholderTextColor="rgba(255,255,255,0.8)"
+      />
+      <TouchableOpacity style={styles.btn} onPress={() => dispatch(login())}>
+        <Text style={styles.btnText}>Login{auth.isLogged.toString()}</Text>
+      </TouchableOpacity>
+      <View style={styles.linkcontainer}>
+        <Text style={styles.text}>Don't have an account?</Text>
+        <TouchableOpacity onPress={() => Actions.signup()}>
+          <Text style={styles.linkText}>Signup</Text>
         </TouchableOpacity>
-        <View style={styles.linkcontainer}>
-          <Text style={styles.text}>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => Actions.signup()}>
-            <Text style={styles.linkText}>Signup</Text>
-          </TouchableOpacity>
-        </View>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   loginFormContainer: {
