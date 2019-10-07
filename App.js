@@ -1,15 +1,20 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { PublicRoutes } from "./app/config/routes";
-import store from "./app/config/store";
+import persist from "./app/config/store";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+
+const persistStore = persist();
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <View style={styles.container}>
-        <PublicRoutes />
-      </View>
+    <Provider store={persistStore.store}>
+      <PersistGate loading={null} persistor={persistStore.persistor}>
+        <View style={styles.container}>
+          <PublicRoutes />
+        </View>
+      </PersistGate>
     </Provider>
   );
 }

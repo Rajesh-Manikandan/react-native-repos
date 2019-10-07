@@ -19,9 +19,15 @@ export default class Signupform extends Component {
     return (
       <View style={styles.loginFormContainer}>
         <TextInput
-          placeholder="Username/Email"
+          placeholder="Username"
           style={styles.input}
           placeholderTextColor="rgba(255,255,255,0.8)"
+        />
+        <TextInput
+          placeholder="Email"
+          style={styles.input}
+          placeholderTextColor="rgba(255,255,255,0.8)"
+          keyboardType="email-address"
         />
         <TextInput
           placeholder="Password"
